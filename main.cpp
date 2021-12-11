@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <time.h>
@@ -119,11 +120,64 @@ void executionTime(vector<int> vect, bool sortType) {
     res << vect.size() << ", " << sortName << ", " << fullTime << endl;
 
     res.close();
+}
 
+void print(vector<int> vect) {
+    for(int i = 0; i < vect.size(); i++) cout << vect[i] << " ";
 }
 ////////////////////////////////////////////
 int main()
 {
-    
+    srand(time(NULL));
+    vector<int> values, valuesMemory;
+    int choice;
+
+    cout << "Prosze wybrac sposob odczytu danych: " << endl << "* 1 * - z pliku" << endl << "* 2 * - losowanie" << endl << "1 / 2: ";
+    cin >> choice;
+
+    switch(choice) {
+        case 1: {
+            int x;
+            fstream in;
+
+            in.open("input.txt", ios::in);
+
+            while(!in.eof()) {
+                in >> x;
+                values.push_back(x);
+            }
+
+            in.close();
+
+            break;
+        } case 2: {
+            values = generateVector(20);
+
+            break;
+        }
+    }
+
+    valuesMemory = values;
+
+    cout << "Quick sort" << endl;
+
+    ////////////////////////////////////////////
+    // QUICK SORT
+    quicksort(values, 0, values.size() - 1);
+    print(values);
+    ////////////////////////////////////////////
+
+    cout << endl << "Insertation sort" << endl;
+    values = valuesMemory;
+
+    ////////////////////////////////////////////
+    // INSERTION SORT
+    insertion_sort(values);
+    print(values);
+    ////////////////////////////////////////////
+
+    // 2. Writing sorted vector to file
+    toFile(values);
+
     return 0;
 }
