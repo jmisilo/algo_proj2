@@ -78,6 +78,24 @@ void quicksort(vector<int> &values, int left, int right) {
 }
 ////////////////////////////////////////////
 
+////////////////////////////////////////////
+// INSERTION SORT
+void insertion_sort(vector<int>& vec) {
+    for(int j = 1; j < vec.size(); j++)
+    {
+      int key = vec[j];
+      int i = j-1;
+
+      while(i >= 0 && vec[i] > key)
+      {
+         vec[i+1] = vec[i];
+         i--;
+      }
+      vec[i+1] = key;
+    }
+}
+////////////////////////////////////////////
+
 void executionTime(vector<int> vect, bool sortType) {
     // sortType - if True - quicksort, else insertation sort
     string sortName;
